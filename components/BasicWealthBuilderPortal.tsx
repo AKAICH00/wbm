@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Menu, X, ChevronDown, Download, Play, Users, Book, Calculator } from 'lucide-react';
+import { useAuth, SignOutButton } from '@clerk/nextjs';
+import Link from 'next/link';
 
 // Add custom bounce animation style
 const customBounceStyle = `
@@ -50,6 +52,7 @@ const BasicWealthBuilderPortal = () => {
   const [activeSection, setActiveSection] = useState('home');
   const [scrollPosition, setScrollPosition] = useState(0);
   const [revealedSections, setRevealedSections] = useState(['home']);
+  const { isSignedIn, isLoaded } = useAuth();
   
   const homeRef = useRef(null);
   const aboutRef = useRef(null);
@@ -162,7 +165,6 @@ const BasicWealthBuilderPortal = () => {
               { name: 'About', id: 'about', ref: aboutRef },
               { name: 'Investment', id: 'investment', ref: investmentRef },
               { name: 'Tax Benefits', id: 'tax', ref: taxRef },
-              { name: 'Access', id: 'access', ref: accessRef },
             ].map((item) => (
               <button
                 key={item.id}
@@ -179,6 +181,31 @@ const BasicWealthBuilderPortal = () => {
                 )}
               </button>
             ))}
+            
+            {isLoaded && (
+              isSignedIn ? (
+                <div className="relative">
+                  <SignOutButton>
+                    <button 
+                      className={`transition-colors duration-300 font-medium ${
+                        scrollPosition > 50 ? 'text-gray-800' : 'text-white'
+                      } hover:text-blue-300`}
+                    >
+                      Logout
+                    </button>
+                  </SignOutButton>
+                </div>
+              ) : (
+                <Link 
+                  href="/sign-in"
+                  className={`transition-colors duration-300 font-medium ${
+                    scrollPosition > 50 ? 'text-gray-800' : 'text-white'
+                  } hover:text-blue-300`}
+                >
+                  Login
+                </Link>
+              )
+            )}
           </nav>
           
           {/* Mobile Menu Button */}
@@ -208,7 +235,6 @@ const BasicWealthBuilderPortal = () => {
             { name: 'About', id: 'about', ref: aboutRef },
             { name: 'Investment', id: 'investment', ref: investmentRef },
             { name: 'Tax Benefits', id: 'tax', ref: taxRef },
-            { name: 'Access', id: 'access', ref: accessRef },
           ].map((item) => (
             <button
               key={item.id}
@@ -218,6 +244,25 @@ const BasicWealthBuilderPortal = () => {
               {item.name}
             </button>
           ))}
+          
+          {isLoaded && (
+            isSignedIn ? (
+              <SignOutButton>
+                <button 
+                  className="py-4 text-left text-white text-xl font-medium border-b border-blue-800"
+                >
+                  Logout
+                </button>
+              </SignOutButton>
+            ) : (
+              <Link 
+                href="/sign-in"
+                className="py-4 text-left text-white text-xl font-medium border-b border-blue-800"
+              >
+                Login
+              </Link>
+            )
+          )}
         </div>
       </div>
       
