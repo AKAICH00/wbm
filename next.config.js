@@ -5,7 +5,7 @@ const nextConfig = {
   },
   // Add server configuration to fix HTTP 431 errors with Clerk
   experimental: {
-    serverComponentsExternalPackages: ['@clerk/backend'],
+    serverExternalPackages: ['@clerk/backend'],
   },
   // Increase header size limit
   httpAgentOptions: {
