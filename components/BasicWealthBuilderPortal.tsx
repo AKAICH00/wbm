@@ -256,7 +256,12 @@ const BasicWealthBuilderPortal = () => {
             </div>
           </div>
           
-          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white flex flex-col items-center animate-bounce">
+          <div 
+            className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white flex flex-col items-center animate-bounce cursor-pointer hover:text-blue-300 transition-colors duration-300"
+            onClick={() => scrollTo(aboutRef)}
+            role="button"
+            aria-label="Scroll to about section"
+          >
             <div className="text-sm mb-2">Scroll to discover</div>
             <ChevronDown className="h-6 w-6" />
           </div>
