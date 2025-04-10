@@ -3,6 +3,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Menu, X, ChevronDown, Download, Play, Users, Book, Calculator } from 'lucide-react';
 
+// Add custom bounce animation style
+const customBounceStyle = `
+  @keyframes slowBounce {
+    0%, 100% {
+      transform: translateY(0) translateX(-50%);
+    }
+    50% {
+      transform: translateY(-10px) translateX(-50%);
+    }
+  }
+`;
+
 // Import our animation components
 // Note: In a real implementation, you would import the actual components
 // For this demo, we'll simulate imports by adding placeholders
@@ -125,6 +137,9 @@ const BasicWealthBuilderPortal = () => {
   
   return (
     <div className="min-h-screen bg-white text-gray-900 overflow-hidden">
+      {/* Add custom animation styles */}
+      <style jsx global>{customBounceStyle}</style>
+      
       {/* Fixed Header - gets solid background on scroll */}
       <header 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -257,10 +272,11 @@ const BasicWealthBuilderPortal = () => {
           </div>
           
           <div 
-            className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white flex flex-col items-center animate-bounce cursor-pointer hover:text-blue-300 transition-colors duration-300"
+            className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white flex flex-col items-center cursor-pointer hover:text-blue-300 transition-colors duration-300"
             onClick={() => scrollTo(aboutRef)}
             role="button"
             aria-label="Scroll to about section"
+            style={{ animation: 'slowBounce 3s infinite' }}
           >
             <div className="text-sm mb-2">Scroll to discover</div>
             <ChevronDown className="h-6 w-6" />
