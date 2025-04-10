@@ -189,7 +189,7 @@ const BasicWealthBuilderPortal = () => {
                     <button 
                       className={`transition-colors duration-300 font-medium ${
                         scrollPosition > 50 ? 'text-gray-800' : 'text-white'
-                      } hover:text-blue-300`}
+                      } hover:text-blue-300 hover:underline cursor-pointer`}
                     >
                       Logout
                     </button>
@@ -200,7 +200,7 @@ const BasicWealthBuilderPortal = () => {
                   href="/sign-in"
                   className={`transition-colors duration-300 font-medium ${
                     scrollPosition > 50 ? 'text-gray-800' : 'text-white'
-                  } hover:text-blue-300`}
+                  } hover:text-blue-300 hover:underline`}
                 >
                   Login
                 </Link>
@@ -249,7 +249,7 @@ const BasicWealthBuilderPortal = () => {
             isSignedIn ? (
               <SignOutButton>
                 <button 
-                  className="py-4 text-left text-white text-xl font-medium border-b border-blue-800"
+                  className="py-4 text-left text-white text-xl font-medium border-b border-blue-800 hover:text-blue-300 hover:underline cursor-pointer"
                 >
                   Logout
                 </button>
@@ -257,7 +257,7 @@ const BasicWealthBuilderPortal = () => {
             ) : (
               <Link 
                 href="/sign-in"
-                className="py-4 text-left text-white text-xl font-medium border-b border-blue-800"
+                className="py-4 text-left text-white text-xl font-medium border-b border-blue-800 hover:text-blue-300 hover:underline"
               >
                 Login
               </Link>
