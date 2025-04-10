@@ -3,17 +3,17 @@ import postgres from 'postgres'
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' })
 
 export async function seed() {
-  // Create table with raw SQL
-  const createTable = await sql`
-      CREATE TABLE IF NOT EXISTS profiles (
-        id SERIAL PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        email VARCHAR(255) UNIQUE NOT NULL,
-        image VARCHAR(255),
-        "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-      );
-  `
-  console.log(`Created "profiles" table`)
+  // Remove table creation logic - let Drizzle Kit handle schema
+  // const createTable = await sql`
+  //     CREATE TABLE IF NOT EXISTS profiles (
+  //       id SERIAL PRIMARY KEY,
+  //       name VARCHAR(255) NOT NULL,
+  //       email VARCHAR(255) UNIQUE NOT NULL,
+  //       image VARCHAR(255),
+  //       "createdAt" TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+  //     );
+  // `
+  // console.log(`Created "profiles" table`)
 
   const profiles = await Promise.all([
     sql`
@@ -34,8 +34,9 @@ export async function seed() {
   ])
   console.log(`Seeded ${profiles.length} users`)
 
+  // Return only the inserted users result
   return {
-    createTable,
+    // createTable,
     insertedUsers: profiles,
   }
 }
