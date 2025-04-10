@@ -1,12 +1,13 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
+import ThemeProviderClient from '@/components/ThemeProviderClient'
 
 export const metadata = {
   metadataBase: new URL('https://postgres-drizzle.vercel.app'),
-  title: 'Postgres Demo with Drizzle',
+  title: 'WealthBuilder Mortgage',
   description:
-    'A simple Next.js app with a Postgres database and Drizzle as the ORM',
+    'A premium platform for real estate investors seeking mortgage solutions',
 }
 
 const inter = Inter({
@@ -21,10 +22,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={inter.variable}>{children}</body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <body className={inter.variable}>
+        <ClerkProvider>
+          <ThemeProviderClient>
+            {children}
+          </ThemeProviderClient>
+        </ClerkProvider>
+      </body>
+    </html>
   )
 }
