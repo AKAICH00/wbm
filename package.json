@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:large-headers": "NODE_OPTIONS='--max-http-header-size=16384' next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
