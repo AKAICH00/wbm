@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowRight, Menu, X, ChevronDown, Download, Play, Users, Book, Calculator } from 'lucide-react';
+import { ArrowRight, Menu, X, ChevronDown, Download, Play, Users, Book, Calculator, Briefcase, DollarSign, Shield, TrendingUp, Repeat } from 'lucide-react';
 import { useAuth, SignOutButton } from '@clerk/nextjs';
 import Link from 'next/link';
 
@@ -20,32 +20,406 @@ const customBounceStyle = `
 // Import our animation components
 // Note: In a real implementation, you would import the actual components
 // For this demo, we'll simulate imports by adding placeholders
-const HouseBuildingAnimation = () => (
-  <div className="bg-gray-100 h-full rounded-lg flex items-center justify-center">
-    <div className="text-center">
-      <div className="text-gray-400 mb-2">House Building Animation Component</div>
-      <div className="text-sm text-gray-500">(The actual animation would be rendered here)</div>
-    </div>
+const MansionAnimation = () => {
+  const [progress, setProgress] = useState(0);
+  const [animationComplete, setAnimationComplete] = useState(false);
+  
+  useEffect(() => {
+    // Only run the animation if not completed
+    if (progress < 150 && !animationComplete) {
+      const interval = setInterval(() => {
+        setProgress(prev => {
+          const newProgress = prev + 1;
+          if (newProgress >= 150) {
+            clearInterval(interval);
+            setAnimationComplete(true);
+            return 150;
+          }
+          return newProgress;
+        });
+      }, 50);
+      
+      return () => clearInterval(interval);
+    }
+  }, [progress, animationComplete]);
+  
+  return (
+    <div className="mansion-animation-container w-full h-full flex flex-col justify-end pb-6 -mt-8 md:-mt-8">
+      <svg 
+        viewBox="0 0 500 300" 
+        className="w-full h-auto scale-[1.5] md:scale-[2.0] lg:scale-[2.625] translate-x-0 md:translate-x-[70px] lg:translate-x-[140px]"
+        preserveAspectRatio="xMidYMid meet"
+        style={{ background: 'transparent' }}
+      >
+        {/* Main mansion */}
+        {/* Main building */}
+        <rect 
+          x={200 - (progress < 25 ? progress * 3 : 75)} 
+          y={210 - (progress >= 25 && progress < 40 ? (progress - 25) * 4 : (progress < 25 ? 0 : 60))} 
+          width={(progress < 25 ? progress * 3 : 75) * 2} 
+          height={(progress >= 25 && progress < 40 ? (progress - 25) * 4 : (progress < 25 ? 0 : 60))} 
+          fill="none"
+          stroke="white" 
+          strokeWidth="1.5"
+          strokeDasharray={progress >= 75 ? "0" : "5,5"}
+          strokeDashoffset={-progress * 2}
+        />
+        
+        {/* Left Wing */}
+        {progress >= 40 && (
+          <rect 
+            x={125 - (progress >= 40 && progress < 50 ? (progress - 40) * 2.5 : (progress < 40 ? 0 : 25))} 
+            y={210 - (progress >= 40 && progress < 50 ? (progress - 40) * 3 : (progress < 40 ? 0 : 30))} 
+            width={(progress >= 40 && progress < 50 ? (progress - 40) * 2.5 : (progress < 40 ? 0 : 25))} 
+            height={(progress >= 40 && progress < 50 ? (progress - 40) * 3 : (progress < 40 ? 0 : 30))} 
+            fill="none"
+            stroke="white" 
+            strokeWidth="1.5"
+            strokeDasharray={progress >= 75 ? "0" : "5,5"}
+            strokeDashoffset={-progress * 2}
+          />
+        )}
+        
+        {/* Right Wing */}
+        {progress >= 40 && (
+          <rect 
+            x={275} 
+            y={210 - (progress >= 40 && progress < 50 ? (progress - 40) * 3 : (progress < 40 ? 0 : 30))} 
+            width={(progress >= 40 && progress < 50 ? (progress - 40) * 2.5 : (progress < 40 ? 0 : 25))} 
+            height={(progress >= 40 && progress < 50 ? (progress - 40) * 3 : (progress < 40 ? 0 : 30))} 
+            fill="none"
+            stroke="white" 
+            strokeWidth="1.5"
+            strokeDasharray={progress >= 75 ? "0" : "5,5"}
+            strokeDashoffset={-progress * 2}
+          />
+        )}
+        
+        {/* Main Roof */}
+        {progress >= 50 && (
+          <polygon 
+            points={`
+              ${125},${150} 
+              ${275},${150} 
+              ${200},${150 - (progress >= 50 && progress < 60 ? (progress - 50) * 2 : (progress < 50 ? 0 : 20))}
+            `}
+            fill="none"
+            stroke="white"
+            strokeWidth="1.5"
+            strokeDasharray={progress >= 75 ? "0" : "5,5"}
+            strokeDashoffset={-progress * 2}
+          />
+        )}
+        
+        {/* Left Wing Roof */}
+        {progress >= 60 && (
+          <polygon 
+            points={`
+              ${100},${180} 
+              ${125},${180} 
+              ${112.5},${180 - (progress >= 60 && progress < 65 ? (progress - 60) * 2 : (progress < 60 ? 0 : 10))}
+            `}
+            fill="none"
+            stroke="white"
+            strokeWidth="1.5"
+            strokeDasharray={progress >= 75 ? "0" : "5,5"}
+            strokeDashoffset={-progress * 2}
+          />
+        )}
+        
+        {/* Right Wing Roof */}
+        {progress >= 60 && (
+          <polygon 
+            points={`
+              ${275},${180} 
+              ${300},${180} 
+              ${287.5},${180 - (progress >= 60 && progress < 65 ? (progress - 60) * 2 : (progress < 60 ? 0 : 10))}
+            `}
+            fill="none"
+            stroke="white"
+            strokeWidth="1.5"
+            strokeDasharray={progress >= 75 ? "0" : "5,5"}
+            strokeDashoffset={-progress * 2}
+          />
+        )}
+        
+        {/* Front Steps */}
+        {progress >= 65 && (
+          <>
+            <rect 
+              x={180} 
+              y={210} 
+              width={40} 
+              height={5} 
+              fill="none"
+              stroke="white" 
+              strokeWidth="1"
+              strokeDasharray={progress >= 75 ? "0" : "5,5"}
+            />
+            <rect 
+              x={185} 
+              y={215} 
+              width={30} 
+              height={3} 
+              fill="none"
+              stroke="white" 
+              strokeWidth="1"
+              strokeDasharray={progress >= 75 ? "0" : "5,5"}
+            />
+            <rect 
+              x={190} 
+              y={218} 
+              width={20} 
+              height={2} 
+              fill="none"
+              stroke="white" 
+              strokeWidth="1"
+              strokeDasharray={progress >= 75 ? "0" : "5,5"}
+            />
+          </>
+        )}
+        
+        {/* Main Door - no fill or shade */}
+        {progress >= 70 && (
+          <>
+            <rect 
+              x={190} 
+              y={180} 
+              width={20} 
+              height={30} 
+              fill="none"
+              stroke="white" 
+              strokeWidth="1.5"
+              strokeDasharray={progress >= 80 ? "0" : "5,5"}
+            />
+            {/* Door Detail */}
+            <path
+              d={`M190,180 A10,10 0 0 1 210,180`}
+              fill="none"
+              stroke="white"
+              strokeWidth="1.5"
+              strokeDasharray={progress >= 80 ? "0" : "5,5"}
+            />
+            <line 
+              x1={200} 
+              y1={180} 
+              x2={200} 
+              y2={210} 
+              stroke="white" 
+              strokeWidth="0.75"
+              strokeDasharray={progress >= 85 ? "0" : "3,3"}
+            />
+          </>
+        )}
+        
+        {/* Windows - Main Building */}
+        {progress >= 75 && (
+          <>
+            <rect x={145} y={165} width={15} height={20} fill="none" stroke="white" strokeWidth="1" />
+            <rect x={170} y={165} width={15} height={20} fill="none" stroke="white" strokeWidth="1" />
+            <rect x={215} y={165} width={15} height={20} fill="none" stroke="white" strokeWidth="1" />
+            <rect x={240} y={165} width={15} height={20} fill="none" stroke="white" strokeWidth="1" />
+            
+            <rect x={145} y={190} width={15} height={15} fill="none" stroke="white" strokeWidth="1" />
+            <rect x={240} y={190} width={15} height={15} fill="none" stroke="white" strokeWidth="1" />
+          </>
+        )}
+        
+        {/* Windows - Left Wing */}
+        {progress >= 80 && (
+          <>
+            <rect x={105} y={185} width={15} height={15} fill="none" stroke="white" strokeWidth="1" />
+          </>
+        )}
+        
+        {/* Windows - Right Wing */}
+        {progress >= 80 && (
+          <>
+            <rect x={280} y={185} width={15} height={15} fill="none" stroke="white" strokeWidth="1" />
+          </>
+        )}
+        
+        {/* Window Crosses */}
+        {progress >= 85 && (
+          <>
+            {/* Main Building */}
+            <line x1={152.5} y1={165} x2={152.5} y2={185} stroke="white" strokeWidth="0.75" />
+            <line x1={145} y1={175} x2={160} y2={175} stroke="white" strokeWidth="0.75" />
+            
+            <line x1={177.5} y1={165} x2={177.5} y2={185} stroke="white" strokeWidth="0.75" />
+            <line x1={170} y1={175} x2={185} y2={175} stroke="white" strokeWidth="0.75" />
+            
+            <line x1={222.5} y1={165} x2={222.5} y2={185} stroke="white" strokeWidth="0.75" />
+            <line x1={215} y1={175} x2={230} y2={175} stroke="white" strokeWidth="0.75" />
+            
+            <line x1={247.5} y1={165} x2={247.5} y2={185} stroke="white" strokeWidth="0.75" />
+            <line x1={240} y1={175} x2={255} y2={175} stroke="white" strokeWidth="0.75" />
+            
+            <line x1={152.5} y1={190} x2={152.5} y2={205} stroke="white" strokeWidth="0.75" />
+            <line x1={145} y1={197.5} x2={160} y2={197.5} stroke="white" strokeWidth="0.75" />
+            
+            <line x1={247.5} y1={190} x2={247.5} y2={205} stroke="white" strokeWidth="0.75" />
+            <line x1={240} y1={197.5} x2={255} y2={197.5} stroke="white" strokeWidth="0.75" />
+            
+            {/* Left Wing */}
+            <line x1={112.5} y1={185} x2={112.5} y2={200} stroke="white" strokeWidth="0.75" />
+            <line x1={105} y1={192.5} x2={120} y2={192.5} stroke="white" strokeWidth="0.75" />
+            
+            {/* Right Wing */}
+            <line x1={287.5} y1={185} x2={287.5} y2={200} stroke="white" strokeWidth="0.75" />
+            <line x1={280} y1={192.5} x2={295} y2={192.5} stroke="white" strokeWidth="0.75" />
+          </>
+        )}
+        
+        {/* Chimneys */}
+        {progress >= 90 && (
+          <>
+            <rect x={140} y={135} width={8} height={15} fill="none" stroke="white" strokeWidth="1" />
+            <rect x={260} y={135} width={8} height={15} fill="none" stroke="white" strokeWidth="1" />
+          </>
+        )}
+        
+        {/* Additional Architectural Details */}
+        {progress >= 95 && (
+          <>
+            {/* Columns */}
+            <line x1={175} y1={150} x2={175} y2={210} stroke="white" strokeWidth="1" />
+            <line x1={225} y1={150} x2={225} y2={210} stroke="white" strokeWidth="1" />
+            
+            {/* Balcony */}
+            <rect x={180} y={160} width={40} height={5} fill="none" stroke="white" strokeWidth="1" />
+            
+            {/* Balcony railings */}
+            {Array.from({length: 9}).map((_, i) => (
+              <line 
+                key={i}
+                x1={180 + i * 5}
+                y1={160}
+                x2={180 + i * 5}
+                y2={165}
+                stroke="white"
+                strokeWidth="0.75"
+              />
+            ))}
+          </>
+        )}
+        
+        {/* Mansion Detail Lines */}
+        {progress >= 100 && (
+          <>
+            {/* Roof detail lines */}
+            <line x1={125} y1={150} x2={200} y2={130} stroke="white" strokeWidth="0.5" opacity="0.8" />
+            <line x1={275} y1={150} x2={200} y2={130} stroke="white" strokeWidth="0.5" opacity="0.8" />
+            
+            {/* Foundation line */}
+            <line x1={100} y1={210} x2={300} y2={210} stroke="white" strokeWidth="1" />
+            
+            {/* Corner details */}
+            <line x1={125} y1={150} x2={125} y2={210} stroke="white" strokeWidth="1" />
+            <line x1={275} y1={150} x2={275} y2={210} stroke="white" strokeWidth="1" />
+            <line x1={100} y1={180} x2={100} y2={210} stroke="white" strokeWidth="1" />
+            <line x1={300} y1={180} x2={300} y2={210} stroke="white" strokeWidth="1" />
+          </>
+        )}
+        
+        {/* Decorative Lines */}
+        {progress >= 110 && (
+          <>
+            {/* Main roof decorative finial */}
+            <path 
+              d={`M198,130 L200,125 L202,130`} 
+              fill="none" 
+              stroke="white" 
+              strokeWidth="0.75"
+            />
+            
+            {/* Wing Roof decorative finials */}
+            <path 
+              d={`M110.5,170 L112.5,167 L114.5,170`} 
+              fill="none" 
+              stroke="white" 
+              strokeWidth="0.75"
+            />
+            <path 
+              d={`M285.5,170 L287.5,167 L289.5,170`} 
+              fill="none" 
+              stroke="white" 
+              strokeWidth="0.75"
+            />
+          </>
+        )}
+        
+        {/* Final Details - Interior Suggestion Lines */}
+        {progress >= 120 && (
+          <>
+            {/* Interior walls suggestion */}
+            <line x1={160} y1={150} x2={160} y2={210} stroke="white" strokeWidth="0.5" opacity="0.6" />
+            <line x1={240} y1={150} x2={240} y2={210} stroke="white" strokeWidth="0.5" opacity="0.6" />
+            <line x1={125} y1={175} x2={275} y2={175} stroke="white" strokeWidth="0.5" opacity="0.6" />
+            
+            {/* Center hall */}
+            <rect 
+              x={180} 
+              y={175} 
+              width={40} 
+              height={35} 
+              fill="none" 
+              stroke="white" 
+              strokeWidth="0.5"
+              opacity="0.6" 
+            />
+          </>
+        )}
+      </svg>
   </div>
 );
+};
 
-const WealthFlowAnimation = () => (
-  <div className="bg-gray-100 h-full rounded-lg flex items-center justify-center">
-    <div className="text-center">
-      <div className="text-gray-400 mb-2">Wealth Flow Animation Component</div>
-      <div className="text-sm text-gray-500">(The actual animation would be rendered here)</div>
-    </div>
-  </div>
-);
+const WealthFlowAnimation = () => {
+  const circleRadius = 354; // Current radius
+  const circleCenterX = 300; // Center X for SVG viewBox 600x600
+  const circleCenterY = 300; // Center Y
 
-const TaxSavingsAnimation = () => (
-  <div className="bg-gray-100 h-full rounded-lg flex items-center justify-center">
-    <div className="text-center">
-      <div className="text-gray-400 mb-2">Tax Savings Animation Component</div>
-      <div className="text-sm text-gray-500">(The actual animation would be rendered here)</div>
-    </div>
+  return (
+    <div className="wealth-cycle-animated w-full h-full flex items-center justify-center p-2"> 
+      <svg viewBox="0 0 600 600" className="w-full h-full overflow-visible"> 
+        
+        {/* Display the cycle.png image centered using SVG defaults - Shifted right again */}
+        <image 
+          href="/cycle.png" 
+          x="0" 
+          y="0" 
+          width="85.5%"
+          height="85.5%"
+          transform="translate(30, 0)" // Increased right shift to 30px
+        />
+
+        {/* Visible Dotted Circle - Now rotating */}
+        <circle
+          cx={circleCenterX}
+          cy={circleCenterY}
+          r={circleRadius} 
+          fill="none"
+          stroke="#FFFFFF" // White dotted line
+          strokeWidth="2"
+          strokeDasharray="8 12" 
+        >
+          {/* Add rotation animation */}
+          <animateTransform 
+            attributeName="transform"
+            attributeType="XML"
+            type="rotate"
+            from={`0 ${circleCenterX} ${circleCenterY}`}
+            to={`360 ${circleCenterX} ${circleCenterY}`}
+            dur="30s" // Slow rotation duration
+            repeatCount="indefinite"
+          />
+        </circle>
+
+      </svg>
   </div>
 );
+};
 
 const BasicWealthBuilderPortal = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -154,7 +528,10 @@ const BasicWealthBuilderPortal = () => {
             <div className={`text-xl font-bold transition-colors duration-300 ${
               scrollPosition > 50 ? 'text-blue-900' : 'text-white'
             }`}>
-              WealthBuilderMortgage
+              <div className="flex flex-col items-center">
+                <span>Wealth Builder</span>
+                <span>Mortgage Educators</span>
+              </div>
             </div>
           </div>
           
@@ -289,7 +666,7 @@ const BasicWealthBuilderPortal = () => {
             <div className="absolute bottom-1/4 right-1/4 h-96 w-96 rounded-full bg-indigo-600 opacity-20 blur-3xl" />
           </div>
           
-          <div className="max-w-6xl mx-auto px-6 py-20 relative z-10 flex flex-col md:flex-row items-center pt-20">
+          <div className="max-w-6xl mx-auto px-6 py-20 relative z-10 flex flex-col md:flex-row pt-20">
             <div className="md:w-1/2 mb-12 md:mb-0 text-white">
               <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
                 Build Wealth Through <span className="text-blue-300">Strategic Real Estate</span>
@@ -309,9 +686,9 @@ const BasicWealthBuilderPortal = () => {
               </div>
             </div>
             
-            <div className="md:w-1/2 flex justify-center">
-              <div className="w-full max-w-lg transform transition-all duration-1000 translate-y-0">
-                <HouseBuildingAnimation />
+            <div className="md:w-1/2 flex justify-center mt-8 md:mt-0">
+              <div className="w-full h-full transform transition-all duration-1000 translate-y-0">
+                <MansionAnimation />
               </div>
             </div>
           </div>
@@ -421,10 +798,21 @@ const BasicWealthBuilderPortal = () => {
               </p>
             </div>
             
-            <div className="bg-white rounded-lg shadow-md p-8 mt-12">
-              <div className="text-center text-gray-500">
-                <div className="text-lg mb-2">Wealth Flow Animation Component</div>
-                <div className="text-sm">(The actual animation would be rendered here)</div>
+            <div 
+              className="rounded-lg shadow-md p-8 mt-12 h-96 relative overflow-hidden"
+              style={{ background: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)' }}
+            >
+              {/* Grid Background */}
+              <div 
+                className="absolute inset-0 z-0" 
+                style={{ 
+                  backgroundImage: 'linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.05) 75%, rgba(255, 255, 255, 0.05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.05) 75%, rgba(255, 255, 255, 0.05) 76%, transparent 77%, transparent)',
+                  backgroundSize: '50px 50px',
+                }} 
+              />
+              {/* Animation Content */}
+              <div className="relative z-10 w-full h-full">
+                <WealthFlowAnimation />
               </div>
             </div>
           </div>
@@ -470,13 +858,6 @@ const BasicWealthBuilderPortal = () => {
                   <span className="text-gray-700">Pass-through entity benefits</span>
                 </li>
               </ul>
-              
-              <div className="bg-white rounded-lg shadow-md p-8 mt-12">
-                <div className="text-center text-gray-500">
-                  <div className="text-lg mb-2">Tax Savings Animation Component</div>
-                  <div className="text-sm">(The actual animation would be rendered here)</div>
-                </div>
-              </div>
             </div>
           </div>
         </section>
@@ -484,9 +865,20 @@ const BasicWealthBuilderPortal = () => {
         {/* Access Section */}
         <section 
           ref={accessRef}
-          className="py-20 bg-blue-600 text-white"
+          className="py-20 bg-blue-600 text-white relative"
         >
-          <div className="max-w-6xl mx-auto px-6">
+          <div className="absolute inset-0 overflow-hidden">
+            {/* Decorative Grid */}
+            <div className="absolute inset-0" style={{ 
+              backgroundImage: 'linear-gradient(0deg, transparent 24%, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.05) 75%, rgba(255, 255, 255, 0.05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.05) 75%, rgba(255, 255, 255, 0.05) 76%, transparent 77%, transparent)',
+              backgroundSize: '50px 50px',
+            }} />
+            
+            {/* Decorative Elements */}
+            <div className="absolute top-1/4 left-1/4 h-64 w-64 rounded-full bg-blue-500 opacity-20 blur-3xl" />
+            <div className="absolute bottom-1/4 right-1/4 h-96 w-96 rounded-full bg-indigo-600 opacity-20 blur-3xl" />
+          </div>
+          <div className="max-w-6xl mx-auto px-6 relative z-10">
             <div className="flex flex-col items-center text-center mb-12">
               <div className="inline-block mb-6 px-4 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium">
                 Exclusive Access
@@ -594,32 +986,32 @@ const BasicWealthBuilderPortal = () => {
       </main>
       
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-12">
+      <footer className="bg-white text-gray-800 py-12">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="col-span-1 md:col-span-2">
-              <div className="text-xl font-bold text-white mb-4">WealthBuilderMortgage</div>
+              <div className="text-xl font-bold text-gray-900 mb-4">WealthBuilderMortgage</div>
               <p className="mb-4">Building wealth through strategic real estate investment and tax optimization.</p>
               <p className="text-sm">© {new Date().getFullYear()} WealthBuilderMortgage. All rights reserved.</p>
             </div>
             
             <div>
-              <h3 className="text-white font-semibold mb-4">Resources</h3>
+              <h3 className="text-gray-900 font-semibold mb-4">Resources</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="hover:text-white transition">Blog</a></li>
-                <li><a href="#" className="hover:text-white transition">Guides</a></li>
-                <li><a href="#" className="hover:text-white transition">Calculators</a></li>
-                <li><a href="#" className="hover:text-white transition">FAQ</a></li>
+                <li><a href="#" className="hover:text-blue-600 transition">Blog</a></li>
+                <li><a href="#" className="hover:text-blue-600 transition">Guides</a></li>
+                <li><a href="#" className="hover:text-blue-600 transition">Calculators</a></li>
+                <li><a href="#" className="hover:text-blue-600 transition">FAQ</a></li>
               </ul>
             </div>
             
             <div>
-              <h3 className="text-white font-semibold mb-4">Company</h3>
+              <h3 className="text-gray-900 font-semibold mb-4">Company</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="hover:text-white transition">About</a></li>
-                <li><a href="#" className="hover:text-white transition">Contact</a></li>
-                <li><a href="#" className="hover:text-white transition">Privacy</a></li>
-                <li><a href="#" className="hover:text-white transition">Terms</a></li>
+                <li><a href="#" className="hover:text-blue-600 transition">About</a></li>
+                <li><a href="#" className="hover:text-blue-600 transition">Contact</a></li>
+                <li><a href="#" className="hover:text-blue-600 transition">Privacy</a></li>
+                <li><a href="#" className="hover:text-blue-600 transition">Terms</a></li>
               </ul>
             </div>
           </div>

@@ -131,7 +131,10 @@ const WealthBuilderPortal = () => {
                 ? theme === 'light' ? 'text-blue-900' : 'text-blue-300'
                 : theme === 'light' ? 'text-white' : 'text-white'
             }`}>
-              WealthBuilderMortgage
+              <div className="flex flex-col items-center">
+                <span>Wealth Builder</span>
+                <span>Mortgage Educators</span>
+              </div>
             </div>
           </div>
           
