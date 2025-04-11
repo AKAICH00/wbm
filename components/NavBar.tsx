@@ -3,7 +3,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { useAuth, UserButton } from '@clerk/nextjs';
-import ThemeToggle from './ThemeToggle';
 
 export default function NavBar() {
   const { isSignedIn, isLoaded } = useAuth();
@@ -14,46 +13,34 @@ export default function NavBar() {
         <div className="flex justify-between h-16">
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
-              <Link href="/" className="text-xl font-bold">
+              <Link href="/" className="text-xl font-bold text-blue-800">
                 Wealth Builder Mortgage Educators
               </Link>
             </div>
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-              <Link 
-                href="/"
-                className="border-transparent hover:border-foreground inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                Home
-              </Link>
-              <Link 
-                href="/pricing"
-                className="border-transparent hover:border-foreground inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-              >
-                Pricing
-              </Link>
-              
-              {isLoaded && isSignedIn && (
-                <>
-                  <Link 
-                    href="/dashboard"
-                    className="border-transparent hover:border-foreground inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                  >
-                    Dashboard
-                  </Link>
-                  <Link 
-                    href="/community"
-                    className="border-transparent hover:border-foreground inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                  >
-                    Community
-                  </Link>
-                </>
-              )}
-            </div>
+            {isLoaded && !isSignedIn && (
+              <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                <Link 
+                  href="/"
+                  className="border-transparent hover:border-foreground inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >
+                  Home
+                </Link>
+                <Link 
+                  href="/pricing"
+                  className="border-transparent hover:border-foreground inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >
+                  Pricing
+                </Link>
+                <Link 
+                  href="/community"
+                  className="border-transparent hover:border-foreground inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >
+                  Community
+                </Link>
+              </div>
+            )}
           </div>
           <div className="hidden sm:ml-6 sm:flex sm:items-center gap-4">
-            {/* Theme Toggle Button */}
-            <ThemeToggle />
-            
             {isLoaded && isSignedIn ? (
               <UserButton afterSignOutUrl="/" />
             ) : (

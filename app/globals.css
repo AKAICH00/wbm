@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    /* Light theme (default) */
+    /* Light theme (always used) */
     --background: #ffffff;
     --foreground: #000000;
     --primary: #000000;
@@ -17,29 +17,10 @@
     --radius: 0.5rem;
   }
 
-  html[data-theme="dark"] {
-    /* Dark theme */
-    --background: #000000;
-    --foreground: #ffffff;
-    --primary: #ffffff;
-    --primary-foreground: #000000;
-    --secondary: #202020;
-    --secondary-foreground: #ffffff;
-    --muted: #202020;
-    --muted-foreground: #a0a0a0;
-    --border: #303030;
-  }
-
   /* Apply theme variables to elements */
   body {
     background-color: var(--background);
     color: var(--foreground);
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-
-  /* Theme transitions */
-  *, *::before, *::after {
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   }
 }
 
@@ -60,21 +41,4 @@
 
 .border-theme {
   border-color: var(--border);
-}
-
-/* Add utility classes for theme-specific styling */
-html[data-theme="dark"] .dark\:bg-secondary {
-  background-color: var(--secondary);
-}
-
-html[data-theme="dark"] .dark\:text-foreground {
-  color: var(--foreground);
-}
-
-html[data-theme="light"] .light\:bg-secondary {
-  background-color: var(--secondary);
-}
-
-html[data-theme="light"] .light\:text-foreground {
-  color: var(--foreground);
 }
