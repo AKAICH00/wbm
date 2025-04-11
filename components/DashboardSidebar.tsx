@@ -24,7 +24,6 @@ export default function DashboardSidebar() {
   const menuItems = [
     { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
     { name: 'Properties', path: '/properties', icon: Building },
-    { name: 'Investments', path: '/investments', icon: PiggyBank },
     { name: 'Loans', path: '/loans', icon: FileText },
     { name: 'Tools', path: '/tools', icon: Calculator },
     { name: 'Calendar', path: '/calendar', icon: Calendar },
